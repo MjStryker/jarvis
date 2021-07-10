@@ -2,37 +2,58 @@
 import os
 import sys
 import time
-import speech_recognition
+import speech_recognition as sr
 import pyttsx3
 
-recognizer = speech_recognition.Recognizer()
+listener = sr.Recognizer()
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+# engine.setProperty("voice", voices[0].id)
 
 
-def job():
-    while True:
-        try:
-            with speech_recognition.Microphone() as mic:
-                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
-                audio = recognizer.listen(mic)
-
-                text = recognizer.recognize_google(language="fr-FR")
-                text = text.lower()
-
-                print(f"You said: {text}")
-
-        except speech_recognition.UnknownValueError():
-            recognizer = speech_recognition.Recognizer()
-            continue
-
-    # time.sleep(1)
+def talk(text: str):
+    engine.say(text)
+    engine.runAndWait()
 
 
-if __name__ == "__main__":
+talk("Bonjour Monsieur Morlet")
+
+# while True:
+# time.sleep(1)
+
+
+def take_command():
     try:
-        job()
-    except KeyboardInterrupt:
-        print('Interrupted')
-        try:
-            sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+        with sr.Microphone() as source:
+            print("Listening...")
+            voice = listener.listen(source)
+            # voice.adjust_for_ambient_noise(source, duration=0.2)
+            # command = listener.recognize_google(voice, language="fr-FR")
+            command = listener.recognize_google(voice, language="fr-FR")
+            command = command.lower()
+            if 'jarvis' in command:
+                print("Jarvis detected !")
+            return command
+    except:
+        pass
+        # listener = sr.Recognizer()
+        # continue
+
+
+def run_jarvis():
+    command = take_command()
+    print(command)
+
+
+while True:
+    run_jarvis()
+
+# if __name__ == "__main__":
+#     try:
+#         job()
+#     except KeyboardInterrupt:
+#         print('Interrupted')
+#         try:
+#             sys.exit(0)
+#         except SystemExit:
+#             os._exit(0)
