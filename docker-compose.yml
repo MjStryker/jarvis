@@ -1,0 +1,15 @@
+version: "3.8"
+
+# docker-compose up --build
+
+services:
+  jarvis:
+    image: jarvis
+    container_name: jarvis
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    volumes:
+      - ./src:/code

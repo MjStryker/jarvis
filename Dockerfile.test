@@ -1,0 +1,25 @@
+# docker build -t jarvis -f Dockerfile.test .
+# docker run -it --rm --name jarvis -v src:/code jarvis
+
+# Set base image (host OS)
+FROM python:3.9.6-slim
+
+# Set the working directory in the container
+WORKDIR /code
+
+# Copy the dependencies file to the working directory
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# INSTALL PYAUDIO !!
+# RUN apt-get update && apt-get install -y ffmpeg python3-pyaudio
+# RUN apt-get update && apt-get install -y ffmpeg python3-pyaudio
+RUN apt-get update && apt-get install -y python3-pyaudio
+
+# Copy the content of the local src directory to the working directory
+COPY src/ .
+
+# Command to run on container start
+CMD [ "python", "main.py" ]
