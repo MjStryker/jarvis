@@ -1,2 +1,4 @@
+playsound
+vext.gi
 speechrecognition
 pyttsx3

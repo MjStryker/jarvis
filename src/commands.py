@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from main import talk
+from talk import talk
 
 import locale
 locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
@@ -12,8 +12,9 @@ def execute_command(command: str):
     date = now.strftime("%A %d %B %Y")
     hour = now.strftime("%H:%M")
 
-    if("jour" in command):
-        print(date)
+    if("bonjour" in command):
+        talk("Bonjour Monsieur MORLET")
+    elif("jour" in command):
         talk(f"Nous somme le {date}")
     elif("heure" in command):
         talk(f"Il est {hour}")
@@ -22,5 +23,7 @@ def execute_command(command: str):
 
 
 if __name__ == "__main__":
-    execute_command("on est quel jour Jarvis ?")
+    # print()
+    execute_command("Bonjour")
+    # execute_command("on est quel jour Jarvis ?")
     # execute_command("qu'elle heure est-il Jarvis ?")

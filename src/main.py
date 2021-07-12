@@ -3,22 +3,11 @@ import os
 import sys
 import time
 import speech_recognition as sr
-import pyttsx3
+
 
 from datetime import datetime
 
 listener = sr.Recognizer()
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-engine.setProperty("voice", voices[26].id)
-# engine.setProperty("voice", "french+f6")
-engine.setProperty("rate", 130)
-engine.setProperty('volume', 1.0)
-
-
-def talk(text: str):
-    engine.say(text)
-    engine.runAndWait()
 
 
 def recognize_speech_from_mic(recognizer, microphone):
