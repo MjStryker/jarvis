@@ -45,7 +45,6 @@ def talk(text: str):
 
     playsound(path)
 
-    time.sleep(0.5)
     os.remove(path)
 
 

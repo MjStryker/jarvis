@@ -3,11 +3,14 @@ import os
 import sys
 import time
 import speech_recognition as sr
-
+import config
 
 from datetime import datetime
 
+from commands import execute_command
+
 listener = sr.Recognizer()
+assistant_name = config.personal_assistant_name.lower()
 
 
 def recognize_speech_from_mic(recognizer, microphone):
@@ -54,20 +57,27 @@ def recognize_speech_from_mic(recognizer, microphone):
         response["error"] = "API unavailable"
     except sr.UnknownValueError:
         # speech was unintelligible
-        response["error"] = "Unable to recognize speech"
+        response["error"] = "..."
+        # response["error"] = "Unable to recognize speech"
 
     return response
 
 
 def take_command(recognizer, microphone):
-    command = recognize_speech_from_mic(recognizer, microphone)
+    speech = recognize_speech_from_mic(recognizer, microphone)
 
     # if there was an error
-    if command["error"]:
-        print("ERROR: {}".format(command["error"]))
+    if speech["error"]:
+        print("ERROR: {}".format(speech["error"]))
 
     # show the user the transcription
-    print("You said: {}".format(command["transcription"]))
+    command = speech["transcription"]
+    print(f"You said: {command}")
+
+    if (command is not None and assistant_name in command):
+        command = command.replace(assistant_name, "").strip()
+        print(f"Your command: {command}")
+        execute_command(command)
 
 
 def run_assistant():
@@ -87,5 +97,10 @@ def run_assistant():
 
 
 if __name__ == "__main__":
-    print()
-    # run_assistant()
+    # print()
+    run_assistant()
+    # command = "Quelle heure est-il Friday ?".lower()
+    # if (assistant_name in command):
+    #     command = command.replace(assistant_name, "").strip()
+    #     print(f"Your command: {command}")
+    #     execute_command(command)

@@ -3,9 +3,9 @@ version: "3.8"
 # docker-compose up --build
 
 services:
-  jarvis:
-    image: jarvis
-    container_name: jarvis
+  personal_assistant:
+    image: personal_assistant
+    container_name: personal_assistant
     build:
       context: .
       dockerfile: Dockerfile.test

@@ -1,9 +1,13 @@
-from datetime import datetime
+import config
+import locale
 
+from datetime import datetime
 from talk import talk
 
-import locale
+
 locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
+
+assistant_name = config.personal_assistant_name.lower()
 
 
 def execute_command(command: str):
@@ -12,18 +16,23 @@ def execute_command(command: str):
     date = now.strftime("%A %d %B %Y")
     hour = now.strftime("%H:%M")
 
-    if("bonjour" in command):
-        talk("Bonjour Monsieur MORLET")
+    if ("lisa" in command):
+        talk("Elle prépare sa valise pour les vacances :)")
+    elif("jeanne" in command):
+        talk("Elle fait du café, hahaha, mdr")
+    elif("bonjour" in command):
+        talk("Bonjour")
     elif("jour" in command):
         talk(f"Nous somme le {date}")
     elif("heure" in command):
         talk(f"Il est {hour}")
     else:
-        print("...")
+        print("Unknown command...")
+        talk("Je n'ai pas compris...")
 
 
 if __name__ == "__main__":
-    # print()
-    execute_command("Bonjour")
-    # execute_command("on est quel jour Jarvis ?")
-    # execute_command("qu'elle heure est-il Jarvis ?")
+    print()
+    # execute_command("Bonjour")
+    # execute_command(f"on est quel jour {assistant_name} ?")
+    # execute_command(f"qu'elle heure est-il {assistant_name} ?")

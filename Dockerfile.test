@@ -1,5 +1,5 @@
-# docker build -t jarvis -f Dockerfile.test .
-# docker run -it --rm --name jarvis -v src:/code jarvis
+# docker build -t personal_assistant -f Dockerfile.test .
+# docker run -it --rm --name personal_assistant -v src:/code personal_assistant
 
 # Set base image (host OS)
 FROM python:3.9.6-slim
